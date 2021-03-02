@@ -4,6 +4,8 @@ import json
 import codecs
 from django.core.mail import send_mail
 from django.conf import settings
+from django.views.generic import FormView
+from .forms import ContactForm
 
 
 def index(request):
@@ -19,7 +21,35 @@ def index(request):
 def contact(request):
 
     if request.method == 'POST':
-        message = request.POST['message']
-        send_mail('Contact Form',message,settings.EMAIL_HOST_USER,['alarefabdo1@gmail.com'],fail_silently=False,)
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            name = request.POST['name']
+            email = request.POST['email']
+            message = request.POST['message']
+            ms = name + email + message
+            send_mail('Contact Form' , ms , settings.EMAIL_HOST_USER , ['alarefabdo1@gmail.com'] , fail_silently=False,)
+    else:
+        form = ContactForm(request.POST)
 
-    return render(request,'student_app/contact.html')
+    context = {
+        'form': form,
+    }
+
+
+    return render(request,'student_app/contact.html' , context)
+
+# class ContactUs(ContactForm):
+#     # form = ContactForm
+#     template_name = 'student_app/contact.html'
+
+#     # def get_success_url(self):
+#     #     return reverse('success_view')
+
+#     def form_valid(self, form):
+#         name = form.cleaned_data.get('name')
+#         email = form.cleaned_data.get('email')
+#         password = form.cleaned_data.get('message')
+
+#         send_mail('Contact Form',ms,settings.EMAIL_HOST_USER,['alarefabdo1@gmail.com'],fail_silently=False,)
+
+
