@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>main</title>
+</head>
+<body>
+    <h1>HELLO FROM <span style="color: blue">INDEX</span></h1>
+    {% for feed in feeds %}
+        <h5>{{feed.description}}</h5>
+    {% endfor %}
+
+    <a href="{% url 'student_app:contact' %}">Contact us</a>
+</body>
+</html>

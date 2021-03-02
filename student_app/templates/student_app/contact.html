@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>contact</title>
+</head>
+<body>
+    <h1>HELLO FROM <span style="color: blue">Contact</span></h1>
+
+    <form method="post" action="{% url 'student_app:contact' %}">
+        {% csrf_token %}
+        <textarea name="message" placeholder="قم بوصف مشكلتك هنا"></textarea>
+        <input type="submit" >
+    </form>
+</body>
+</html>
