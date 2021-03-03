@@ -5,8 +5,19 @@
 </head>
 <body>
     <h1>HELLO FROM <span style="color: blue">INDEX</span></h1>
+    {% load index %}
     {% for feed in feeds %}
         <h5>{{feed.description}}</h5>
+        <a href="{{feed.post_url}}">قم بزيارة صفحة الفيسبوك الخاصة </a>
+        {% for image in feed.images %}
+           <img src="{{ image }}" height="170px" width="170px">
+        {% endfor %}
+
+
+        <p>_____________________________________________________________________</p>
+        <p>_____________________________________________________________________</p>
+
+
     {% endfor %}
 
     <a href="{% url 'student_app:contact' %}">Contact us</a>

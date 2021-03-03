@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 import json
 import codecs
@@ -6,9 +6,12 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.views.generic import FormView
 from .forms import ContactForm
+from . import main
 
 
 def index(request):
+
+    main.main()
 
     with codecs.open('my_posts.json' , 'r' , 'utf-8') as f:
         feeds = json.load(f)
@@ -23,33 +26,18 @@ def contact(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
+            subject = request.POST['subject']
             name = request.POST['name']
             email = request.POST['email']
             message = request.POST['message']
             ms = name + email + message
-            send_mail('Contact Form' , ms , settings.EMAIL_HOST_USER , ['alarefabdo1@gmail.com'] , fail_silently=False,)
+            send_mail(subject , ms , settings.EMAIL_HOST_USER , ['alarefabdo1@gmail.com'] , fail_silently=False,)
+
     else:
-        form = ContactForm(request.POST)
+        form = ContactForm()
 
     context = {
         'form': form,
     }
-
-
     return render(request,'student_app/contact.html' , context)
-
-# class ContactUs(ContactForm):
-#     # form = ContactForm
-#     template_name = 'student_app/contact.html'
-
-#     # def get_success_url(self):
-#     #     return reverse('success_view')
-
-#     def form_valid(self, form):
-#         name = form.cleaned_data.get('name')
-#         email = form.cleaned_data.get('email')
-#         password = form.cleaned_data.get('message')
-
-#         send_mail('Contact Form',ms,settings.EMAIL_HOST_USER,['alarefabdo1@gmail.com'],fail_silently=False,)
-
 
