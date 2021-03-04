@@ -1,26 +1,19 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>main</title>
-</head>
-<body>
-    <h1>HELLO FROM <span style="color: blue">INDEX</span></h1>
-    {% load index %}
-    {% for feed in feeds %}
-        <h5>{{feed.description}}</h5>
-        <a href="{{feed.post_url}}">قم بزيارة صفحة الفيسبوك الخاصة </a>
-        {% for image in feed.images %}
-           <img src="{{ image }}" height="170px" width="170px">
-        {% endfor %}
+{% extends 'student_app/base.html' %}
+{% load index %}
+{% block content %}
 
-
-        <p>_____________________________________________________________________</p>
-        <p>_____________________________________________________________________</p>
-
-
+<h1>HELLO FROM <span style="color: blue">INDEX</span></h1>
+{% for feed in feeds %}
+    <h5>{{feed.description}}</h5>
+    <a href="{{feed.post_url}}">قم بزيارة صفحة الفيسبوك الخاصة </a>
+    {% for image in feed.images %}
+       <img src="{{ image }}" height="170px" width="170px">
     {% endfor %}
+    <p>_____________________________________________________________________</p>
+    <p>_____________________________________________________________________</p>
+{% endfor %}
 
-    <a href="{% url 'student_app:contact' %}">Contact us</a>
-    <a href="/static/arra.png" download>Download Now</a>
-</body>
-</html>
+<a href="{% url 'student_app:contact' %}">Contact us</a>
+<a href="/static/collegeFile.pdf" download>Download Now</a>
+
+{% endblock content %}

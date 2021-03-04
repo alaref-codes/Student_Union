@@ -1,18 +1,16 @@
-from django.shortcuts import render,redirect
-from django.http import HttpResponse
-import json
-import codecs
+from django.shortcuts import render,redirect,reverse
+from django.http import HttpResponse,JsonResponse
+import json,codecs,time,requests
 from django.core.mail import send_mail
 from django.conf import settings
 from django.views.generic import FormView
 from .forms import ContactForm
-from . import main
-
+from .utils import main
+from django.contrib import messages
 
 def index(request):
 
-    main.main()
-
+    main()
     with codecs.open('my_posts.json' , 'r' , 'utf-8') as f:
         feeds = json.load(f)
 
@@ -21,8 +19,8 @@ def index(request):
         }
     return render(request, 'student_app/index.html' ,context)
 
-def contact(request):
 
+def contact(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
@@ -40,4 +38,3 @@ def contact(request):
         'form': form,
     }
     return render(request,'student_app/contact.html' , context)
-
