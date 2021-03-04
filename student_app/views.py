@@ -23,6 +23,7 @@ def index(request):
 def contact(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
+
         if form.is_valid():
             subject = request.POST['subject']
             name = request.POST['name']
@@ -30,6 +31,7 @@ def contact(request):
             message = request.POST['message']
             ms = name + email + message
             send_mail(subject , ms , settings.EMAIL_HOST_USER , ['alarefabdo1@gmail.com'] , fail_silently=False,)
+            form = ContactForm()
 
     else:
         form = ContactForm()
