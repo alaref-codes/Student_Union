@@ -29,9 +29,10 @@ def contact(request):
             name = request.POST['name']
             email = request.POST['email']
             message = request.POST['message']
-            ms = name + email + message
+            ms = name + '\n' + email + '\n' + message
             send_mail(subject , ms , settings.EMAIL_HOST_USER , ['alarefabdo1@gmail.com'] , fail_silently=False,)
             form = ContactForm()
+
 
     else:
         form = ContactForm()

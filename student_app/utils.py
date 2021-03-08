@@ -209,8 +209,8 @@ class FacebookPostsScraper:
 
 def main():
     # Enter your Facebook email and password
-    email = 'alarefabushaala@gmail.com'
-    password = "%%%areef%%%"
+    email = os.environ.get('EMAIL')
+    password = os.environ.get('FACEBOOK')
 
     # Instantiate an object
     fps = FacebookPostsScraper(email, password, post_url_text='Full Story')
