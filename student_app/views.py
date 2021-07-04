@@ -10,7 +10,7 @@ from django.contrib import messages
 
 def index(request):
 
-    # main()
+    main()
     with codecs.open('my_posts.json' , 'r' , 'utf-8') as f:
         feeds = json.load(f)
 

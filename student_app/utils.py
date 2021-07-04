@@ -157,7 +157,7 @@ class FacebookPostsScraper:
                 description = ''
 
             # Get all the images links
-            images = [image.get('src', '') for image in images[1:]]
+            images = [image.get('src', '') for image in images[1:]]         
 
             # for image in images:
             #     images = image.get('src', '')
@@ -209,7 +209,7 @@ class FacebookPostsScraper:
 
 def main():
     # Enter your Facebook email and password
-    email = os.environ.get('EMAIL')
+    email = os.environ.get('EMAIL1')
     password = os.environ.get('FACEBOOK')
 
     # Instantiate an object
@@ -220,5 +220,6 @@ def main():
     data = fps.get_posts_from_profile(single_profile)
 
     fps.posts_to_json('my_posts')  # You can export the posts as JSON document
+    
 if __name__ == '__main__':
     main()
